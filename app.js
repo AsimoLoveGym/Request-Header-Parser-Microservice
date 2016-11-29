@@ -15,7 +15,10 @@ app.get('/', function (req, res) {
 app.get('/api/whoami', function (req, res) {
   var outPutJson = {};
   var ipAddress = req.ip;
-  var trimedIpAddress = ipAddress.replace(/\a-z|:/gi, '');
+
+  // var testIPstring = '::ffff:10.69.208.153';
+  var trimedIpAddress = ipAddress.replace(/[A-Za-z]|:/g, '');
+
   var language = req.headers['accept-language'];
   var trimedLanguage = language.slice(0, language.indexOf(','));
   var softwareInfo = req.headers['user-agent'];
