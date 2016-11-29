@@ -12,8 +12,26 @@ app.get('/', function (req, res) {
   res.render('index');
 });
 
-app.get('/*', function (req, res) {
+app.get('/api/whoami', function (req, res) {
   var outPutJson = {};
+  var ipAddress = req.ip;
+  var language = req.headers['accept-language'];
+  var trimedLanguage = language.slice(0, language.indexOf(','));
+  var softwareInfo = req.headers['user-agent'];
+  var startIndex = softwareInfo.indexOf('\(');
+  var endIndex = softwareInfo.indexOf('\)');
+  var trimedSoftwareInfo = softwareInfo.slice(startIndex + 1, endIndex);
+
+  // console.log(ipAddress);
+  // console.log(trimedLanguage);
+  // console.log(trimedSoftwareInfo);
+
+  outPutJson = {
+      ipaddress: ipAddress,
+      language: trimedLanguage,
+      software: trimedSoftwareInfo,
+    };
+
   res.json(outPutJson);
 });
 
